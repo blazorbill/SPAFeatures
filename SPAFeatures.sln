@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAFeatures", "SPAFeatures\SPAFeatures.csproj", "{C7BC3FF2-BB8F-4127-8003-2660155A2D27}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAFeatures.DTO", "SPAFeatures.DTO\SPAFeatures.DTO.csproj", "{68A15754-DC7E-4B90-952B-9A8C36E91C8D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAFeatures.Server.BL", "SPAFeatures.Server.BL\SPAFeatures.Server.BL.csproj", "{012D382E-D11D-4056-B797-28242E5505C6}"
@@ -12,8 +14,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAFeatures.Client.BL", "SPAFeatures.Client.BL\SPAFeatures.Client.BL.csproj", "{F6302B50-98C9-43C7-A353-3E9B72D69FB3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{E318B44F-1ACB-46E8-A542-D40D9769ECC8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAFeatures", "SPAFeatures\SPAFeatures.csproj", "{C7BC3FF2-BB8F-4127-8003-2660155A2D27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAFeatures.ComponentLibrary", "SPAFeatures.ComponentLibrary\SPAFeatures.ComponentLibrary.csproj", "{6C9B1756-AA9A-4C65-9B22-316B1C9BD9EE}"
 EndProject

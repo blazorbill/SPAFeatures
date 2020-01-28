@@ -1,0 +1,109 @@
+﻿@page "/person"
+@inject IPersonService  _personService
+
+<div class="row">
+    <button type="button" class="btn btn-primary" @onclick="AddPerson">Add Person</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name<SortButton SortButtonClicked="SortClicked" SortOrder="sortOrder" /></th>
+            <th>Last Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < persons.Count; i++)
+        {
+            var idx = i;
+            <tr>
+                <td><button @onclick="@(_=>UpdatePerson(idx))" class="btn btn-link">@persons[i].FirstName</button></td>
+                <td>@persons[i].LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<TemplatedDialog Show="@showPersonDialog">
+    <PersonEditor ThisPerson="selectedPerson"
+                  SavePressed="SavePerson"
+                  CancelPressed="CancelUpdate" />
+</TemplatedDialog>
+
+@code {
+
+    private bool showPersonDialog;
+
+    private List<PersonDTO> persons = new List<PersonDTO>();
+    private PersonDTO selectedPerson;
+
+    private SortTypes sortOrder = SortTypes.None;
+
+    protected async override Task OnInitializedAsync()
+    {
+        persons = await _personService.GetPersons();
+        SortList();
+    }
+
+    void AddPerson()
+    {
+        showPersonDialog = true;
+        selectedPerson = new PersonDTO();
+    }
+
+    void UpdatePerson(int i)
+    {
+        showPersonDialog = true;
+        selectedPerson = new PersonDTO()
+        {
+            ID = persons[i].ID,
+            FirstName = persons[i].FirstName,
+            LastName = persons[i].LastName
+        };
+    }
+
+    async Task SavePerson(PersonDTO newPerson)
+    {
+        showPersonDialog = false;
+        if(await _personService.SavePerson(newPerson))
+        {
+            persons = await _personService.GetPersons();
+            SortList();
+        };
+    }
+    void CancelUpdate()
+    {
+        showPersonDialog = false;
+    }
+    void SortClicked()
+    {
+        switch (sortOrder)
+        {
+            case SortTypes.None:
+                sortOrder = SortTypes.SortAscending;
+                break;
+            case SortTypes.SortAscending:
+                sortOrder = SortTypes.SortDescending;
+                break;
+            case SortTypes.SortDescending:
+                sortOrder = SortTypes.None;
+                break;
+        }
+        SortList();
+    }
+    void SortList()
+    {
+        switch (sortOrder)
+        {
+            case SortTypes.None:
+                persons = persons.OrderBy(p => p.ID).ToList();
+                break;
+            case SortTypes.SortAscending:
+                persons = persons.OrderBy(p => p.FirstName).ToList();
+                break;
+            case SortTypes.SortDescending:
+                persons = persons.OrderByDescending(p => p.FirstName).ToList();
+                break;
+        }
+    }
+}

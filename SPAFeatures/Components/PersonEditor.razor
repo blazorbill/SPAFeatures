@@ -1,0 +1,57 @@
+﻿<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Person Editor</h3>
+        </div>
+    </div>
+    <EditForm Model="ThisPerson" OnValidSubmit="SaveClicked">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label class="col-form-label">First Name:</label>
+            </div>
+            <div class="col-9">
+                <InputText class="form-control" @bind-Value="thisPerson.FirstName" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label class="col-form-label">Last Name:</label>
+            </div>
+            <div class="col-9">
+                <InputText class="form-control" @bind-Value="thisPerson.LastName" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6 text-right">
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-danger" @onclick="@(()=>showAlert=true)">Cancel</button>
+            </div>
+        </div>
+    </EditForm>
+    <ShowAlert ShowTheAlert="showAlert"
+               AlertDescription="Are you sure you want to cancel?"
+               Button1Label="Yes"
+               Button2Label="No"
+               Button1Pressed="CancelPressed"
+               Button2Pressed="@(()=>showAlert=false)">
+
+    </ShowAlert>
+
+</div>
+@code {
+    private bool showAlert = false;
+    [Parameter]
+    public EventCallback<PersonDTO> SavePressed { get; set; }
+    [Parameter]
+    public EventCallback CancelPressed { get; set; }
+
+    [Parameter]
+    public PersonDTO ThisPerson { get; set; }
+
+    async void SaveClicked()
+    {
+        await SavePressed.InvokeAsync(thisPerson);
+    }
+}

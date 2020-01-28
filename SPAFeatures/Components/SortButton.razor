@@ -1,0 +1,22 @@
+﻿<button @onclick="SortButtonClicked" class="btn btn-link">
+    @switch (SortOrder)
+    {
+        case SortTypes.None:
+            <img src="css/open-iconic/png/minus-2x.png" alt="minus">
+            break;
+        case SortTypes.SortAscending:
+            <img src="css/open-iconic/png/sort-ascending-2x.png" alt="sort-ascending">
+            break;
+        case SortTypes.SortDescending:
+            <img src="css/open-iconic/png/sort-descending-2x.png" alt="sort-descending">
+            break;
+    }
+</button>
+
+@code {
+    [Parameter]
+    public SortTypes SortOrder { get; set; }
+
+    [Parameter]
+    public EventCallback SortButtonClicked { get; set; }
+}
